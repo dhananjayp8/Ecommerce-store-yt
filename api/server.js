@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import bodyParser from "express";
 
 import userRouter from "./Routes/user.js";
+import productRouter from "./Routes/product.js";
 const app = express();
 app.use(bodyParser.json());
 //home route
@@ -11,6 +12,9 @@ app.get("/", (req, res) => {
 });
 //user router
 app.use("/api/user", userRouter);
+
+//product router
+app.use("/api/product", productRouter);
 
 const db =
   "mongodb+srv://dhananjaypuranik8:dhananjay@cluster0.n67j8.mongodb.net/";
