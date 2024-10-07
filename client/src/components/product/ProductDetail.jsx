@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import RelatedProduct from "./RelatedProduct";
 const ProductDetail = () => {
   const [product, setProduct] = useState();
   const url = "http://localhost:6001/api";
@@ -62,6 +63,7 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
+      <RelatedProduct category={product?.category} />
     </>
   );
 };
