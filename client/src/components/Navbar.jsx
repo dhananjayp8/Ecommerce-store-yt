@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
+  const [searchItem, setSearchItem] = useState("");
+  const navigate = useNavigate();
+  const submitHandler = (e) => {
+    e.preventDefault();
+    navigate(`/product/search/${searchItem}`);
+    setSearchItem("");
+  };
   return (
     <div className="nav sticky-top">
       <div className="nav-bar ">
@@ -11,10 +19,15 @@ const Navbar = () => {
         >
           <h1>ShopKart</h1>
         </Link>
-        <div className="search-bar">
+        <form className="search-bar" onSubmit={submitHandler}>
           <span className="material-symbols-outlined">search</span>{" "}
-          <input type="text" placeholder="Search Products..." />
-        </div>
+          <input
+            type="text"
+            placeholder="Search Products..."
+            value={searchItem}
+            onChange={(e) => setSearchItem(e.target.value)}
+          />
+        </form>
         <div className="right">
           <button className="btn btn-warning mx-3">cart</button>
           <button className="btn btn-warning mx-3">profile</button>
