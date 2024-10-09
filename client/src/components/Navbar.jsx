@@ -32,7 +32,9 @@ const Navbar = () => {
           <button className="btn btn-warning mx-3">cart</button>
           <button className="btn btn-warning mx-3">profile</button>
           <button className="btn btn-warning mx-3">login</button>
-          <button className="btn btn-warning mx-3">register</button>
+          <Link to={"/register"} className="btn btn-info mx-3">
+            register
+          </Link>
           {/* <button className="btn btn-warning">lo</button> */}
         </div>
         <div className="sub-bar"></div>

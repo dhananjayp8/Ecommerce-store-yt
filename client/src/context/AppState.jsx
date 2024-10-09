@@ -18,8 +18,26 @@ const AppState = (props) => {
     };
     fetchProducts();
   }, []);
+
+  //register user
+
+  const register = async (name, email, password) => {
+    const api = await axios.post(
+      `${url}/user/register`,
+      { name, email, password },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+    alert(api.data.message);
+    console.log("user registered", api);
+  };
+
   return (
-    <AppContext.Provider value={{ products }}>
+    <AppContext.Provider value={{ products, register }}>
       {props.children}
     </AppContext.Provider>
   );
