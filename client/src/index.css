@@ -42,7 +42,7 @@ body::-webkit-scrollbar {
   outline: none;
 }
 
-/* .sub-bar {
+.sub-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -56,4 +56,4 @@ body::-webkit-scrollbar {
 .sub-bar .items:hover {
   background-color: black;
   cursor: pointer;
-}  */
+}
