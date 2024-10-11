@@ -6,7 +6,8 @@ const Navbar = () => {
   const [searchItem, setSearchItem] = useState(" ");
   const navigate = useNavigate();
   const location = useLocation();
-  const { setFilteredData, products } = useContext(AppContext);
+  const { setFilteredData, products, logout, isAuthenticated } =
+    useContext(AppContext);
 
   const filterByCategory = (c) => {
     setFilteredData(
@@ -41,15 +42,33 @@ const Navbar = () => {
           />
         </form>
         <div className="right">
-          <button className="btn btn-warning mx-3">cart</button>
-          <button className="btn btn-warning mx-3">profile</button>
-          <Link to={"/login"} className="btn btn-info mx-3">
-            login
-          </Link>
-          <Link to={"/register"} className="btn btn-info mx-3">
-            register
-          </Link>
-          <button className="btn btn-warning">logout</button>
+          {isAuthenticated && (
+            <>
+              <button className="btn btn-warning mx-3">cart</button>
+              <Link to={"/profile"} className="btn btn-primary mx-3">
+                profile
+              </Link>
+              <button
+                className="btn btn-warning"
+                onClick={() => {
+                  logout();
+                  navigate("/");
+                }}
+              >
+                logout
+              </button>
+            </>
+          )}
+          {!isAuthenticated && (
+            <>
+              <Link to={"/login"} className="btn btn-info mx-3">
+                login
+              </Link>
+              <Link to={"/register"} className="btn btn-info mx-3">
+                register
+              </Link>
+            </>
+          )}
         </div>
       </div>
       <div className="sub-bar">

@@ -10,6 +10,7 @@ const AppState = (props) => {
   const [token, setToken] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
+  const [user, setUser] = useState();
   useEffect(() => {
     const fetchProducts = async () => {
       const api = await axios.get(`${url}/product/allProducts`, {
@@ -21,9 +22,15 @@ const AppState = (props) => {
       console.log(api.data.products);
       setProducts(api.data.products);
       setFilteredData(api.data.products);
+      userProfile();
     };
     fetchProducts();
   }, [token]);
+
+  useEffect(() => {
+    let lstoken = localStorage.getItem("token");
+    setToken(lstoken);
+  }, []);
 
   //register user
 
@@ -50,9 +57,6 @@ const AppState = (props) => {
       transition: Bounce,
     });
 
-    setToken(api.data.token);
-    setIsAuthenticated(true);
-    localStorage.setItem("token", token);
     return api.data;
   };
 
@@ -79,8 +83,44 @@ const AppState = (props) => {
       theme: "light",
       transition: Bounce,
     });
-    console.log(api.data.message);
+    console.log(api.data);
+    setToken(api.data.token);
+    setIsAuthenticated(true);
+    localStorage.setItem("token", api.data.token);
     return api.data;
+  };
+
+  //logout
+  const logout = () => {
+    setIsAuthenticated(false);
+    setToken(" ");
+    localStorage.removeItem("token");
+    toast.success("Logout Successfully..!", {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  };
+
+  //user profile
+  const userProfile = async () => {
+    const api = await axios.get(`${url}/user/profile`, {
+      headers: {
+        "Content-Type": "application/json",
+        Auth: token,
+      },
+      withCredentials: true,
+    });
+    console.log(api.data);
+    setUser(api.data.user);
+    // setProducts(api.data);
+    // setFilteredData(api.data.products);
   };
 
   return (
@@ -95,6 +135,8 @@ const AppState = (props) => {
         setIsAuthenticated,
         filteredData,
         setFilteredData,
+        logout,
+        user,
       }}
     >
       {props.children}
