@@ -1,16 +1,20 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import AppContext from "../context/AppContext";
 const Navbar = () => {
   const [searchItem, setSearchItem] = useState(" ");
   const navigate = useNavigate();
+  const location = useLocation();
   const { setFilteredData, products } = useContext(AppContext);
 
   const filterByCategory = (c) => {
     setFilteredData(
       products.filter((data) => data.category.toLowerCase() === c.toLowerCase())
     );
+  };
+  const filterByPrice = (price) => {
+    setFilteredData(products.filter((data) => data.price >= price));
   };
   const submitHandler = (e) => {
     e.preventDefault();
@@ -49,7 +53,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className="sub-bar">
-        <div className="items" onClick={() => filterByCategory(products)}>
+        <div className="items" onClick={() => setFilteredData(products)}>
           No Filter
         </div>
         <div className="items" onClick={() => filterByCategory("mobiles")}>
@@ -64,11 +68,21 @@ const Navbar = () => {
         <div className="items" onClick={() => filterByCategory("headphones")}>
           Headphones
         </div>
-        <div className="items">15999</div>
-        <div className="items">25999</div>
-        <div className="items">49999</div>
-        <div className="items">69999</div>
-        <div className="items">89999</div>
+        <div className="items" onClick={() => filterByPrice(15999)}>
+          15999
+        </div>
+        <div className="items" onClick={() => filterByPrice(25999)}>
+          25999
+        </div>
+        <div className="items" onClick={() => filterByPrice(49999)}>
+          49999
+        </div>
+        <div className="items" onClick={() => filterByPrice(69999)}>
+          69999
+        </div>
+        <div className="items" onClick={() => filterByPrice(89999)}>
+          89999
+        </div>
       </div>
     </div>
   );
