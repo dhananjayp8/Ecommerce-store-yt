@@ -6,8 +6,9 @@ const Navbar = () => {
   const [searchItem, setSearchItem] = useState(" ");
   const navigate = useNavigate();
   const location = useLocation();
-  const { setFilteredData, products, logout, isAuthenticated } =
+  const { setFilteredData, products, logout, isAuthenticated, user, cart } =
     useContext(AppContext);
+  console.log("user cart", cart);
 
   const filterByCategory = (c) => {
     setFilteredData(
@@ -44,9 +45,20 @@ const Navbar = () => {
         <div className="right">
           {isAuthenticated && (
             <>
-              <button className="btn btn-warning mx-3">cart</button>
+              <Link
+                to={"/cart"}
+                type="button"
+                className="btn btn-primary position-relative"
+              >
+                <span className="material-symbols-outlined">shopping_cart</span>
+
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {cart?.items?.length}
+                  <span className="visually-hidden">unread messages</span>
+                </span>
+              </Link>
               <Link to={"/profile"} className="btn btn-primary mx-3">
-                profile
+                {user?.name}
               </Link>
               <button
                 className="btn btn-warning"
@@ -71,38 +83,40 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      <div className="sub-bar">
-        <div className="items" onClick={() => setFilteredData(products)}>
-          No Filter
+      {location.pathname == "/" && (
+        <div className="sub-bar">
+          <div className="items" onClick={() => setFilteredData(products)}>
+            No Filter
+          </div>
+          <div className="items" onClick={() => filterByCategory("mobiles")}>
+            Mobiles
+          </div>
+          <div className="items" onClick={() => filterByCategory("laptops")}>
+            Laptops
+          </div>
+          <div className="items" onClick={() => filterByCategory("camera")}>
+            Camera
+          </div>
+          <div className="items" onClick={() => filterByCategory("headphones")}>
+            Headphones
+          </div>
+          <div className="items" onClick={() => filterByPrice(15999)}>
+            15999
+          </div>
+          <div className="items" onClick={() => filterByPrice(25999)}>
+            25999
+          </div>
+          <div className="items" onClick={() => filterByPrice(49999)}>
+            49999
+          </div>
+          <div className="items" onClick={() => filterByPrice(69999)}>
+            69999
+          </div>
+          <div className="items" onClick={() => filterByPrice(89999)}>
+            89999
+          </div>
         </div>
-        <div className="items" onClick={() => filterByCategory("mobiles")}>
-          Mobiles
-        </div>
-        <div className="items" onClick={() => filterByCategory("laptops")}>
-          Laptops
-        </div>
-        <div className="items" onClick={() => filterByCategory("camera")}>
-          Camera
-        </div>
-        <div className="items" onClick={() => filterByCategory("headphones")}>
-          Headphones
-        </div>
-        <div className="items" onClick={() => filterByPrice(15999)}>
-          15999
-        </div>
-        <div className="items" onClick={() => filterByPrice(25999)}>
-          25999
-        </div>
-        <div className="items" onClick={() => filterByPrice(49999)}>
-          49999
-        </div>
-        <div className="items" onClick={() => filterByPrice(69999)}>
-          69999
-        </div>
-        <div className="items" onClick={() => filterByPrice(89999)}>
-          89999
-        </div>
-      </div>
+      )}
     </div>
   );
 };

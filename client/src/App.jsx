@@ -10,6 +10,7 @@ import Login from "./components/user/Login";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Profile from "./components/user/Profile";
+import Cart from "./components/Cart";
 function App() {
   const { data } = useContext(AppContext);
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </Router>
     </>

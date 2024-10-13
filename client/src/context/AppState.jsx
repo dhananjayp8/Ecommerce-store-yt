@@ -11,6 +11,8 @@ const AppState = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [user, setUser] = useState();
+  const [cart, setCart] = useState([]);
+  const [reload, setReload] = useState(false);
   useEffect(() => {
     const fetchProducts = async () => {
       const api = await axios.get(`${url}/product/allProducts`, {
@@ -25,11 +27,16 @@ const AppState = (props) => {
       userProfile();
     };
     fetchProducts();
-  }, [token]);
+    userCart();
+  }, [token, reload]);
 
   useEffect(() => {
     let lstoken = localStorage.getItem("token");
     setToken(lstoken);
+    if (lstoken) {
+      setToken(lstoken);
+      setIsAuthenticated(true);
+    }
   }, []);
 
   //register user
@@ -83,7 +90,7 @@ const AppState = (props) => {
       theme: "light",
       transition: Bounce,
     });
-    console.log(api.data);
+    // console.log(api.data);
     setToken(api.data.token);
     setIsAuthenticated(true);
     localStorage.setItem("token", api.data.token);
@@ -117,10 +124,125 @@ const AppState = (props) => {
       },
       withCredentials: true,
     });
-    console.log(api.data);
+    // console.log(api.data);
     setUser(api.data.user);
     // setProducts(api.data);
     // setFilteredData(api.data.products);
+  };
+
+  // add to cart
+  const addToCart = async (productId, title, price, qty, imgSrc) => {
+    //console.log("product id is ", productId);
+    const api = await axios.post(
+      `${url}/cart/add`,
+      { productId, title, price, qty, imgSrc },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Auth: token,
+        },
+        withCredentials: true,
+      }
+    );
+    setReload(!reload);
+    console.log("My cart is", api);
+    toast.success(api.data.message, {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  };
+  //user cart
+  const userCart = async () => {
+    const api = await axios.get(`${url}/cart/user`, {
+      headers: {
+        "Content-Type": "application/json",
+        Auth: token,
+      },
+      withCredentials: true,
+    });
+    // console.log("user cart", api.data.cart);
+    setCart(api.data.cart);
+  };
+
+  //decrease from cart
+  const decreaseQty = async (productId, qty) => {
+    const api = await axios.post(
+      `${url}/cart/--qty`,
+      { productId, qty },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Auth: token,
+        },
+        withCredentials: true,
+      }
+    );
+    setReload(!reload);
+    console.log("decrease", api);
+    toast.success(api.data.message, {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  };
+  //remove from cart
+  const removeFromCart = async (productId) => {
+    const api = await axios.delete(`${url}/cart/remove/${productId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Auth: token,
+      },
+      withCredentials: true,
+    });
+    setReload(!reload);
+    //console.log("Remove item", api);
+    toast.success("Item removed from cart", {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  };
+  //clear cart
+  const clearCart = async () => {
+    const api = await axios.delete(`${url}/cart/clear`, {
+      headers: {
+        "Content-Type": "application/json",
+        Auth: token,
+      },
+      withCredentials: true,
+    });
+    setReload(!reload);
+    //console.log("Remove item", api);
+    toast.success(api.data.message, {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   };
 
   return (
@@ -137,6 +259,11 @@ const AppState = (props) => {
         setFilteredData,
         logout,
         user,
+        addToCart,
+        cart,
+        decreaseQty,
+        removeFromCart,
+        clearCart,
       }}
     >
       {props.children}

@@ -24,7 +24,7 @@ const Login = () => {
       navigate("/");
     }
 
-    console.log(formData);
+    // console.log(formData);
   };
   return (
     <>
