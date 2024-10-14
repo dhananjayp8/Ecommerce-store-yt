@@ -8,7 +8,7 @@ const Navbar = () => {
   const location = useLocation();
   const { setFilteredData, products, logout, isAuthenticated, user, cart } =
     useContext(AppContext);
-  console.log("user cart", cart);
+  // console.log("user cart", cart);
 
   const filterByCategory = (c) => {
     setFilteredData(
@@ -51,11 +51,12 @@ const Navbar = () => {
                 className="btn btn-primary position-relative"
               >
                 <span className="material-symbols-outlined">shopping_cart</span>
-
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  {cart?.items?.length}
-                  <span className="visually-hidden">unread messages</span>
-                </span>
+                {cart?.items?.length > 0 && (
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {cart?.items?.length}
+                    <span className="visually-hidden">unread messages</span>
+                  </span>
+                )}
               </Link>
               <Link to={"/profile"} className="btn btn-primary mx-3">
                 {user?.name}

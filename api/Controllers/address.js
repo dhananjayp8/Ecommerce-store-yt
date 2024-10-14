@@ -20,5 +20,8 @@ export const getAddress = async (req, res) => {
   let address = await Address.findOne({ userId: req.user }).sort({
     createdAt: -1,
   });
-  res.json({ message: "Address", userAddress: address[0] });
+  res.json({
+    message: "Address",
+    userAddress: address,
+  });
 };

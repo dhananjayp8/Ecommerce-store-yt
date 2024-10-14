@@ -57,3 +57,7 @@ body::-webkit-scrollbar {
   background-color: black;
   cursor: pointer;
 }
+td {
+  vertical-align: middle;
+  cursor: pointer;
+}
