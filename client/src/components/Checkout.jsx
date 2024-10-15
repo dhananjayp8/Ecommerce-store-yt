@@ -2,23 +2,42 @@ import React, { useContext, useEffect, useState } from "react";
 import AppContext from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import TableProduct from "./TableProduct";
+import axios from "axios";
 const Checkout = () => {
-  const { cart, userAddress } = useContext(AppContext);
-  //   const [qty, setQty] = useState(0);
-  //   const [price, setPrice] = useState(0);
-  //   useEffect(() => {
-  //     let qty = 0;
-  //     let price = 0;
-  //     if (cart?.items) {
-  //       for (let i = 0; i < cart.items?.length; i++) {
-  //         qty += cart.items[i].qty;
-  //         price += cart.items[i].price;
-  //       }
-  //     }
-  //     setPrice(price);
-  //     setQty(qty);
-  //   }, [cart]);
-  console.log("user address :-", userAddress);
+  const { cart, userAddress, url, user } = useContext(AppContext);
+  const [qty, setQty] = useState(0);
+  const [price, setPrice] = useState(0);
+  useEffect(() => {
+    let qty = 0;
+    let price = 0;
+    if (cart?.items) {
+      for (let i = 0; i < cart.items?.length; i++) {
+        qty += cart.items[i].qty;
+        price += cart.items[i].price;
+      }
+    }
+    setPrice(price);
+    setQty(qty);
+  }, [cart]);
+  console.log("cart-items", cart?.items);
+  console.log("user-address", userAddress);
+  console.log("user-id", user._id);
+  console.log("Price", price);
+  const handlePayment = async () => {
+    console.log("Api called");
+    try {
+      const orderResponse = await axios.post(`${url}/payment/checkout`, {
+        amount: price,
+        cartItems: cart?.items,
+        userShipping: userAddress,
+        userId: user._id,
+      });
+      console.log("order response", orderResponse);
+    } catch (err) {
+      console.log(err.response ? err.response.data : err.message);
+    }
+  };
+  //   console.log("user address :-", userAddress);
   return (
     <>
       <div className="container my-3">
@@ -53,6 +72,11 @@ const Checkout = () => {
             </tr>
           </tbody>
         </table>
+      </div>
+      <div className="container text-center my-5">
+        <button className="btn btn-secondary btn-lg" onClick={handlePayment}>
+          Proceed to Pay
+        </button>
       </div>
     </>
   );

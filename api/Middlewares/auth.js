@@ -8,7 +8,7 @@ export const isAuthenticated = async (req, res, next) => {
   console.log(token);
   const decoded = jwt.verify(token, "Dsp@5928");
   const id = decoded.userid;
-  console.log(id);
+  // console.log(id);
 
   let user = await User.findById(id);
   if (!user) {

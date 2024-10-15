@@ -147,7 +147,7 @@ const AppState = (props) => {
       }
     );
     setReload(!reload);
-    console.log("My cart is", api);
+    // console.log("My cart is", api);
     toast.success(api.data.message, {
       position: "top-right",
       autoClose: 1500,
@@ -187,7 +187,7 @@ const AppState = (props) => {
       }
     );
     setReload(!reload);
-    console.log("decrease", api);
+    // console.log("decrease", api);
     toast.success(api.data.message, {
       position: "top-right",
       autoClose: 1500,
@@ -265,6 +265,7 @@ const AppState = (props) => {
           Auth: token,
         },
         withCredentials: true,
+        sucess: true,
       }
     );
     setReload(!reload);
@@ -319,6 +320,7 @@ const AppState = (props) => {
         clearCart,
         shippingAddress,
         userAddress,
+        url,
       }}
     >
       {props.children}
