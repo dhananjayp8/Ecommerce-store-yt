@@ -6,7 +6,8 @@
     "express": "^4.21.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.7.0",
-    "stripe": "^17.2.0"
+    "stripe": "^17.2.0",
+    "uuid": "^10.0.0"
   },
   "name": "server",
   "version": "1.0.0",

@@ -13,6 +13,8 @@ import Profile from "./components/user/Profile";
 import Cart from "./components/Cart";
 import Address from "./components/Address";
 import Checkout from "./components/Checkout";
+import Payment from "./components/Payment";
+import OrderConfirmation from "./components/OrderConfirmation";
 function App() {
   const { data } = useContext(AppContext);
   return (
@@ -30,6 +32,11 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/shipping" element={<Address />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route
+            path="/orderconfirmation/:orderId"
+            element={<OrderConfirmation />}
+          />
         </Routes>
       </Router>
     </>
