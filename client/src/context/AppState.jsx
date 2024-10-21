@@ -14,6 +14,7 @@ const AppState = (props) => {
   const [cart, setCart] = useState([]);
   const [reload, setReload] = useState(false);
   const [userAddress, setUserAddress] = useState("");
+  const [userOrder, setUserOrder] = useState([]);
   useEffect(() => {
     const fetchProducts = async () => {
       const api = await axios.get(`${url}/product/allProducts`, {
@@ -30,6 +31,7 @@ const AppState = (props) => {
     fetchProducts();
     userCart();
     getAddress();
+    user_order();
   }, [token, reload]);
 
   useEffect(() => {
@@ -298,30 +300,20 @@ const AppState = (props) => {
     console.log("user address ", api.data);
     setUserAddress(api.data.userAddress);
   };
-  // const clearCart = async () => {
-  //   const api = await axios.delete(`${url}/cart/clear`, {
-  //     headers: {
-  //       "Content-Type": "Application/json",
-  //       Auth: token,
-  //     },
-  //     withCredentials: true,
-  //   });
-  //   setReload(!reload);
-  //   // console.log("remove item from cart ",api);
-  //   toast.success(api.data.message, {
-  //     position: "top-right",
-  //     autoClose: 1500,
-  //     hideProgressBar: false,
-  //     closeOnClick: true,
-  //     pauseOnHover: true,
-  //     draggable: true,
-  //     progress: undefined,
-  //     theme: "dark",
-  //     transition: Bounce,
-  //   });
-  //   //  setCart(api.data.cart);
-  //   //  setUser("user cart ",api);
-  // };
+
+  //get user order
+  const user_order = async () => {
+    const api = await axios.get(`${url}/payment/userorder`, {
+      headers: {
+        "Content-Type": "Application/json",
+        Auth: token,
+      },
+      withCredentials: true,
+    });
+    //  console.log("user order ", api.data);
+    setUserOrder(api.data);
+  };
+  console.log("user order is", userOrder);
   return (
     <AppContext.Provider
       value={{
@@ -345,6 +337,7 @@ const AppState = (props) => {
         userAddress,
         url,
         clearCart,
+        userOrder,
       }}
     >
       {props.children}

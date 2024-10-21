@@ -211,7 +211,7 @@ const PaymentForm = () => {
         // Verify payment
         await verifyPayment(paymentData);
         clearCart();
-        navigate(`/orderconfirmation/${orderId}`);
+        navigate(`/orderconfirmation`);
       }
     } catch (error) {
       console.log("Error during payment:", error);

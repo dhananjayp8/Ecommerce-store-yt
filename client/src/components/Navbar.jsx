@@ -123,3 +123,109 @@ const Navbar = () => {
 };
 
 export default Navbar;
+// import React, { useContext, useState } from "react";
+// import { Link, useNavigate, useLocation } from "react-router-dom";
+// import AppContext from "../context/AppContext";
+// import './Navbar.css'; // Import custom CSS for styling
+
+// const Navbar = () => {
+//   const [searchItem, setSearchItem] = useState("");
+//   const navigate = useNavigate();
+//   const location = useLocation();
+//   const { setFilteredData, products, logout, isAuthenticated, user, cart } =
+//     useContext(AppContext);
+
+//   const filterByCategory = (c) => {
+//     setFilteredData(
+//       products.filter((data) => data.category.toLowerCase() === c.toLowerCase())
+//     );
+//   };
+
+//   const filterByPrice = (price) => {
+//     setFilteredData(products.filter((data) => data.price >= price));
+//   };
+
+//   const submitHandler = (e) => {
+//     e.preventDefault();
+//     navigate(`/product/search/${searchItem}`);
+//     setSearchItem("");
+//   };
+
+//   return (
+//     <nav className="navbar sticky-top">
+//       <div className="container">
+//         {/* Brand Logo */}
+//         <Link to="/" className="navbar-brand">
+//           ShopKart
+//         </Link>
+
+//         {/* Search Bar */}
+//         <form className="search-bar" onSubmit={submitHandler}>
+//           <input
+//             type="text"
+//             placeholder="Search Products..."
+//             value={searchItem}
+//             onChange={(e) => setSearchItem(e.target.value)}
+//           />
+//           <button type="submit">Search</button>
+//         </form>
+
+//         {/* Right Side (Login/Profile/Cart) */}
+//         <div className="nav-links">
+//           {isAuthenticated && (
+//             <>
+//               {/* Cart Button */}
+//               <Link to="/cart" className="cart-btn">
+//                 <span className="material-icons">shopping_cart</span>
+//                 {cart?.items?.length > 0 && (
+//                   <span className="badge">{cart?.items?.length}</span>
+//                 )}
+//               </Link>
+
+//               {/* Profile Link */}
+//               <Link to="/profile" className="btn-profile">
+//                 {user?.name}
+//               </Link>
+
+//               {/* Logout Button */}
+//               <button className="btn-logout" onClick={() => {
+//                 logout();
+//                 navigate("/");
+//               }}>
+//                 Logout
+//               </button>
+//             </>
+//           )}
+//           {!isAuthenticated && (
+//             <>
+//               <Link to="/login" className="btn-login">
+//                 Login
+//               </Link>
+//               <Link to="/register" className="btn-register">
+//                 Register
+//               </Link>
+//             </>
+//           )}
+//         </div>
+//       </div>
+
+//       {/* Filters (Visible only on the homepage) */}
+//       {location.pathname === "/" && (
+//         <div className="filter-bar">
+//           <button onClick={() => setFilteredData(products)}>No Filter</button>
+//           <button onClick={() => filterByCategory("mobiles")}>Mobiles</button>
+//           <button onClick={() => filterByCategory("laptops")}>Laptops</button>
+//           <button onClick={() => filterByCategory("camera")}>Camera</button>
+//           <button onClick={() => filterByCategory("headphones")}>Headphones</button>
+//           <button onClick={() => filterByPrice(15999)}>15999</button>
+//           <button onClick={() => filterByPrice(25999)}>25999</button>
+//           <button onClick={() => filterByPrice(49999)}>49999</button>
+//           <button onClick={() => filterByPrice(69999)}>69999</button>
+//           <button onClick={() => filterByPrice(89999)}>89999</button>
+//         </div>
+//       )}
+//     </nav>
+//   );
+// };
+
+// export default Navbar;

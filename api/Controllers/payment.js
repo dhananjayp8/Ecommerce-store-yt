@@ -108,6 +108,16 @@ export const checkout = async (req, res) => {
     const orderId = `order_${uuidv4()}`;
     const description = `Export transaction for goods purchased by user ${userId}`;
     // Create a Payment Intent with Stripe
+    const itemSummaries = cartItems.map((item) => ({
+      productId: item.productId,
+      title: item.title,
+      qty: item.qty,
+    }));
+    const itemMetadata = itemSummaries
+      .map((item) => {
+        return `${item.title} (Qty: ${item.qty})`;
+      })
+      .join(", ");
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount * 100, // Amount in cents
       currency: "INR",
@@ -129,8 +139,9 @@ export const checkout = async (req, res) => {
       metadata: {
         orderId,
         userId,
-        cartItems: JSON.stringify(cartItems),
-        userShipping: JSON.stringify(userShipping),
+        // cartItems: JSON.stringify(cartItems),
+        itemSummaries: JSON.stringify(itemSummaries),
+        // userShipping: JSON.stringify(userShipping),
         receipt: `receipt_${Date.now()}`,
       },
     });

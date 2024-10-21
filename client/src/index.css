@@ -8,6 +8,7 @@ body::-webkit-scrollbar {
 }
 .nav {
   width: 100%;
+  position: relative;
 }
 .nav-bar {
   width: 100%;
@@ -16,6 +17,7 @@ body::-webkit-scrollbar {
   align-items: center;
   padding: 10px;
   background-color: rgb(70, 25, 113);
+  overflow-x: auto;
 }
 
 .search-bar {
@@ -60,4 +62,42 @@ body::-webkit-scrollbar {
 td {
   vertical-align: middle;
   cursor: pointer;
+}
+@media (max-width: 768px) {
+  .nav {
+    width: 100%;
+  }
+  .search-bar {
+    width: 80%;
+    margin-left: 1rem;
+    /* padding-left: 1px; */
+    /* Change width for smaller screens */
+  }
+
+  .search-bar input {
+    width: 100%;
+    /* Full width for input on smaller screens */
+  }
+
+  .nav-bar {
+    padding: 5px;
+
+    /* Reduced padding for nav-bar on smaller screens */
+  }
+  .right {
+    display: flex;
+    margin-left: 0.7rem;
+  }
+  .nav-bar .btn {
+    font-size: 0.7rem;
+    margin-top: 0.6rem;
+  }
+  .sub-bar {
+    padding: 5px; /* Reduced padding for sub-bar on smaller screens */
+  }
+
+  .sub-bar .items {
+    padding: 3px; /* Smaller padding for items */
+    font-size: 0.7rem;
+  }
 }
