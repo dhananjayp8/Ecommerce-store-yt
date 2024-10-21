@@ -298,7 +298,30 @@ const AppState = (props) => {
     console.log("user address ", api.data);
     setUserAddress(api.data.userAddress);
   };
-
+  // const clearCart = async () => {
+  //   const api = await axios.delete(`${url}/cart/clear`, {
+  //     headers: {
+  //       "Content-Type": "Application/json",
+  //       Auth: token,
+  //     },
+  //     withCredentials: true,
+  //   });
+  //   setReload(!reload);
+  //   // console.log("remove item from cart ",api);
+  //   toast.success(api.data.message, {
+  //     position: "top-right",
+  //     autoClose: 1500,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     progress: undefined,
+  //     theme: "dark",
+  //     transition: Bounce,
+  //   });
+  //   //  setCart(api.data.cart);
+  //   //  setUser("user cart ",api);
+  // };
   return (
     <AppContext.Provider
       value={{
@@ -321,6 +344,7 @@ const AppState = (props) => {
         shippingAddress,
         userAddress,
         url,
+        clearCart,
       }}
     >
       {props.children}
