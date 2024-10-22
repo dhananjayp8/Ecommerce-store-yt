@@ -101,3 +101,154 @@ td {
     font-size: 0.7rem;
   }
 }
+/* .footer {
+  color: aliceblue;
+  background-color: #1e201e;
+}
+
+.footer-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  border-bottom: 2px solid aliceblue;
+}
+
+.footer-container li {
+  cursor: pointer;
+}
+
+.footer-container img,
+h1 {
+  cursor: pointer;
+}
+
+.footer-head {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.left-link > ul,
+.mid-link > ul {
+  margin: 1.2rem auto;
+}
+
+.left-link > h1,
+.mid-link > h1,
+.right-link > h1 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.left-link > ul > li,
+.mid-link > ul > li {
+  padding: 0.2rem;
+}
+
+.right-link {
+  display: flex;
+  flex-direction: column;
+}
+
+.right-link > ul {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.social-head {
+  margin-bottom: 1.2rem;
+}
+
+.logo-app {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.logo-app > img {
+  width: 12rem;
+  height: 5rem;
+}
+
+.sign {
+  text-align: center;
+  padding: 1rem;
+} */
+footer {
+  color: aliceblue;
+  background-color: #1e201e;
+}
+.footer-container {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  /* gap: 2rem; */
+  justify-content: space-between;
+  padding: 2rem;
+  border-bottom: 2px solid aliceblue;
+}
+.footer-container li {
+  cursor: pointer;
+}
+.footer-container img,
+h1 {
+  cursor: pointer;
+}
+.footer-head {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.left-link > ul {
+  margin: 1.2rem auto;
+}
+.left-link > h1 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.left-link > ul > li {
+  padding: 0.2rem;
+}
+.mid-link > h1 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.mid-link > ul {
+  margin: 1.2rem auto;
+}
+
+.mid-link > ul > li {
+  padding: 0.2rem;
+}
+
+.right-link {
+  display: flex;
+  flex-direction: column;
+}
+.right-link > h1 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.right-link > ul {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+.social-head {
+  margin-bottom: 1.2rem;
+}
+.logo-app {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.logo-app > img {
+  width: 12rem;
+  height: 5rem;
+}
+.sign {
+  text-align: center;
+  padding: 1rem;
+}

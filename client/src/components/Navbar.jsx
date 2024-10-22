@@ -31,7 +31,7 @@ const Navbar = () => {
           className="left"
           style={{ textDecoration: "none", color: "white" }}
         >
-          <h1>ShopKart</h1>
+          <h1>SHOPKART</h1>
         </Link>
         <form className="search-bar" onSubmit={submitHandler}>
           <span className="material-symbols-outlined">search</span>{" "}

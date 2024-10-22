@@ -50,7 +50,7 @@ mongoose
   .then(() => console.log("Mongodb started"))
   .catch((err) => console.log(err));
 
-const port = 6001;
+const port = process.env.PORT;
 
 app.listen(port, () => {
   console.log(`Server started at ${port}`);
