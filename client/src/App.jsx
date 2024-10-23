@@ -14,7 +14,12 @@ import Cart from "./components/Cart";
 import Address from "./components/Address";
 import Checkout from "./components/Checkout";
 import Payment from "./components/Payment";
+import AdminLogin from "./components/admin/AdminLogin";
 import OrderConfirmation from "./components/OrderConfirmation";
+import AddProduct from "./components/admin/AddProduct";
+import AdminRoute from "./components/admin/AdminRoute";
+import AdminPage from "./components/admin/AdminPage";
+import AllUsers from "./components/admin/AllUsers";
 function App() {
   const { data } = useContext(AppContext);
   return (
@@ -34,6 +39,18 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/orderconfirmation" element={<OrderConfirmation />} />
+
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route
+            path="/admin/add"
+            element={
+              <AdminRoute>
+                <AddProduct />
+              </AdminRoute>
+            }
+          />
+          <Route path="/admin/allUsers" element={<AllUsers />} />
         </Routes>
       </Router>
     </>

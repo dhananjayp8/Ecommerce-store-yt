@@ -41,11 +41,11 @@ app.use("/api/address", addressRouter);
 //checkout
 app.use("/api/payment", paymentRouter);
 
-const db =
-  "mongodb+srv://dhananjaypuranik8:dhananjay@cluster0.n67j8.mongodb.net/";
 mongoose
-  .connect(db, {
+  .connect(process.env.MONGO_URI, {
     dbName: "Mern-Ecom",
+    serverSelectionTimeoutMS: 5000, // Wait for 5 seconds before timing out
+    socketTimeoutMS: 45000,
   })
   .then(() => console.log("Mongodb started"))
   .catch((err) => console.log(err));

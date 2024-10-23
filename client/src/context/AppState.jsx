@@ -6,6 +6,7 @@ import axios from "axios";
 const AppState = (props) => {
   const data = 10;
   const url = "http://localhost:6001/api";
+  // const url = "https://estore-backend-2.onrender.com/api";
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -15,6 +16,22 @@ const AppState = (props) => {
   const [reload, setReload] = useState(false);
   const [userAddress, setUserAddress] = useState("");
   const [userOrder, setUserOrder] = useState([]);
+  const [isAuth, setIsAuth] = useState(false);
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  const [allUsers, setAllUsers] = useState([]);
+
+  const adminLogin = async (username, password) => {
+    if (username === "admin" && password === "admin123") {
+      setIsAdminAuthenticated(true);
+      return true;
+    }
+    return false;
+  };
+
+  const adminLogout = () => {
+    setIsAuth(false);
+    setIsAdminAuthenticated(false);
+  };
   useEffect(() => {
     const fetchProducts = async () => {
       const api = await axios.get(`${url}/product/allProducts`, {
@@ -32,6 +49,7 @@ const AppState = (props) => {
     userCart();
     getAddress();
     user_order();
+    // AllUsers();
   }, [token, reload]);
 
   useEffect(() => {
@@ -42,7 +60,25 @@ const AppState = (props) => {
       setIsAuthenticated(true);
     }
   }, []);
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      try {
+        const api = await axios.get(`${url}/user/allUsers`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        });
 
+        console.log("Fetched Users:", api.data);
+        setAllUsers(api.data); // Update state with fetched users
+      } catch (error) {
+        console.error("Error fetching users", error);
+      }
+    };
+
+    fetchAllUsers(); // Call the async function inside useEffect
+  }, []);
   //register user
 
   const register = async (name, email, password) => {
@@ -161,6 +197,41 @@ const AppState = (props) => {
       theme: "light",
       transition: Bounce,
     });
+  };
+
+  //add product
+  const addProduct = async (
+    title,
+    description,
+    price,
+    imgSrc,
+    category,
+    qty
+  ) => {
+    const api = await axios.post(
+      `${url}/product/add`,
+      { title, description, price, imgSrc, category, qty },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+    setReload(!reload);
+    toast.success(api.data.message, {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
+    console.log("add to cart", api.data);
+    return api.data;
   };
   //user cart
   const userCart = async () => {
@@ -313,7 +384,22 @@ const AppState = (props) => {
     //  console.log("user order ", api.data);
     setUserOrder(api.data);
   };
-  console.log("user order is", userOrder);
+  // console.log("user order is", userOrder);
+  //all users
+  // const AllUsers = async () => {
+  //   const api = await axios.get(`${url}/user/allUsers`, {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     withCredentials: true,
+  //   });
+  //   //  setUserOrder(api.data.orders);
+  //   // setAllOrder(api.data.orders);
+  //   console.log("users", api.data.users);
+  //   setAllUsers(api.data.users);
+  //   // return api.data;
+  // };
+
   return (
     <AppContext.Provider
       value={{
@@ -328,6 +414,7 @@ const AppState = (props) => {
         setFilteredData,
         logout,
         user,
+        addProduct,
         addToCart,
         cart,
         decreaseQty,
@@ -338,6 +425,11 @@ const AppState = (props) => {
         url,
         clearCart,
         userOrder,
+        adminLogin,
+        adminLogout,
+        isAuth,
+        isAdminAuthenticated,
+        allUsers,
       }}
     >
       {props.children}
