@@ -14,15 +14,15 @@ const AdminPage = () => {
         >
           Add Product
         </button>
-        <button
+        {/* <button
           className="btn btn-warning my-3"
           onClick={() => navigate("/admin/edit")}
         >
           Edit Product
-        </button>
+        </button> */}
         <button
           className="btn btn-success my-3"
-          onClick={() => navigate("/admin/all-products")}
+          onClick={() => navigate("/admin/adminProducts")}
         >
           All Products
         </button>

@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import AppContext from "../../context/AppContext";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 const EditProduct = () => {
   const navigate = useNavigate();
@@ -64,6 +65,15 @@ const EditProduct = () => {
       );
 
       alert(result.message);
+      toast.success(result.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
 
       navigate("/admin");
 
@@ -180,6 +190,7 @@ const EditProduct = () => {
             </button>
           </div>
         </form>
+        <ToastContainer />
       </div>
     </>
   );

@@ -358,6 +358,64 @@ const AppState = (props) => {
     //  setCart(api.data.cart);
     //  setUser("user cart ",api);
   };
+  // delete product
+  const deleteProduct = async (id) => {
+    const api = await axios.delete(`${url}/product/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Auth: token,
+      },
+      withCredentials: true,
+    });
+    setReload(!reload);
+    toast.success(api.data.message, {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
+    return api.data;
+  };
+
+  // edit Product
+  const editProuduct = async (
+    id,
+    title,
+    description,
+    price,
+    imgSrc,
+    category,
+    qty
+  ) => {
+    const api = await axios.put(
+      `${url}/product/${id}`,
+      { title, description, price, imgSrc, category, qty },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+    setReload(!reload);
+    toast.success(api.data.message, {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
+    return api.data;
+  };
 
   // get User latest address
   const getAddress = async () => {
@@ -429,10 +487,14 @@ const AppState = (props) => {
         adminLogout,
         isAuth,
         isAdminAuthenticated,
+        setIsAdminAuthenticated,
         allUsers,
+        deleteProduct,
+        editProuduct,
       }}
     >
       {props.children}
+      {/* <ToastContainer /> */}
     </AppContext.Provider>
   );
 };

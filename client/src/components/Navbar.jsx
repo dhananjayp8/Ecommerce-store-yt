@@ -15,6 +15,7 @@ const Navbar = () => {
     isAuthenticated,
     user,
     cart,
+    adminLogout,
     isAdminAuthenticated,
   } = useContext(AppContext);
 
@@ -56,7 +57,7 @@ const Navbar = () => {
           className="left"
           style={{ textDecoration: "none", color: "white" }}
         >
-          <h1>SHOPKART</h1>
+          <h1 className="heading">SHOPKART</h1>
         </Link>
         <form className="search-bar" onSubmit={submitHandler}>
           <span className="material-symbols-outlined">search</span>
@@ -116,7 +117,7 @@ const Navbar = () => {
               <button
                 className="btn btn-danger mx-3"
                 onClick={() => {
-                  logout(); // Admin logout logic
+                  adminLogout(); // Admin logout logic
                   navigate("/");
                 }}
               >
@@ -156,7 +157,7 @@ const Navbar = () => {
           <div className="items" onClick={() => filterByCategory("laptops")}>
             Laptops
           </div>
-          <div className="items" onClick={() => filterByCategory("camera")}>
+          <div className="items" onClick={() => filterByCategory("cameras")}>
             Camera
           </div>
           <div className="items" onClick={() => filterByCategory("headphones")}>
